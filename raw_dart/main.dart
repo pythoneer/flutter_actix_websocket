@@ -1,7 +1,6 @@
 import 'dart:io';
 
 var socket;
-var channel;
 
 void main() {
   rawws();
@@ -26,4 +25,3 @@ void rawws() async {
     print("msg: $msg");
   }
 }
-
