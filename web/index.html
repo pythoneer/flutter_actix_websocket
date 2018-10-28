@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <title>connector</title>
+
+  <body>
+    <script type="text/javascript">
+      var conn = null;
+
+      function connect() {
+        disconnect();
+
+        var wsUri = 'ws://echo.websocket.org';
+        //var wsUri = 'ws://192.168.188.43:8765';   //python ws server
+        //var wsUri = 'ws://192.168.188.43:8080/ws/'; //actix ws server
+        
+        console.log("try to connect to: ", wsUri);
+        conn = new WebSocket(wsUri);
+        console.log('Connecting...');
+        conn.onopen = function() {
+          console.log('Connected.');
+        };
+        conn.onmessage = function(e) {
+          console.log('Received: ' + e.data);
+          if(e.data === "update") {
+            var body = document.getElementsByTagName("BODY")[0]; 
+            body.style.backgroundColor = 'green';
+            setTimeout(function() {
+              body.style.backgroundColor = 'white';
+            }, 1000);
+          }
+        };
+        conn.onclose = function() {
+          console.log('Disconnected.');
+          conn = null;
+        };
+      }
+
+      function disconnect() {
+        if (conn != null) {
+          console.log('Disconnecting...');
+          conn.close();
+          conn = null;
+          //update_ui();
+        }
+      }
+
+      function send() {
+        var input_text = document.getElementById('input_text').value;
+        console.log("it:", input_text);
+        conn.send(input_text);
+      }
+
+    </script>
+    <div>Client View</div>
+    <button onclick="connect()">connect</button> <br/>
+
+    <button onclick="send()">send</button>
+    <input id="input_text" type="text" /> <br/>
+
+    <button onclick="disconnect()">close</button>
+  </body>
+
+</html>
+
