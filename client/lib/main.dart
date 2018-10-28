@@ -32,7 +32,7 @@ void rawws() async {
 
   print("raw ws");
 
-  socket = await WebSocket.connect('ws://echo.websocket.org');
+  socket = await WebSocket.connect('ws://echo.websocket.org', compression: CompressionOptions.compressionOff);
 //  socket = await WebSocket.connect('ws://192.168.188.43:8765');   //python ws server
 //  socket = await WebSocket.connect('ws://192.168.188.43:8080/ws/'); //actix ws server
 
