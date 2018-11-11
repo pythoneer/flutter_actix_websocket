@@ -6,5 +6,7 @@ edition = "2018"
 
 [dependencies]
 futures = "0.1.24"
-actix = "0.7"
-actix-web = "0.7"
+actix = "0.7.6"
+#actix-web = "=0.7.5"
+actix-web = { git = "https://github.com/actix/actix-web", rev = "61b1030882781f93c0228b5605041a197e5eb8f5" }
+
